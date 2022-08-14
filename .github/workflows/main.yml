@@ -36,9 +36,10 @@ jobs:
        - name: Adiciona Permissão para mvnw
          run: chmod +x mvnw
        - name: Análise SonarCloud
+         run: ./mvnw verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=lab-devops-project
          env:
-           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-         run: ./mvnw verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=DevOps -Dsonar.host.url=https://sonarcloud.io/
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
 
 
           
