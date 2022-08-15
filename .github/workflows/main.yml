@@ -41,7 +41,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   sec-test:    
-     name: Testes
+     name: Testes Automatizados
      needs: code-quality
      runs-on: ubuntu-latest
 
@@ -56,6 +56,31 @@ jobs:
          cache: maven
      - name: Testes Unitários
        run: mvn -B test --file pom.xml
+       
+  create-image:    
+     name: Criação Imagem Heroku
+     needs: sec-test
+     runs-on: ubuntu-latest
+
+     steps:
+     - name: Git Checkout
+       uses: actions/checkout@v3 
+     - name: Prepara ambiente Docker
+       uses: docker/setup-buildx-action@v2
+       with:
+         install: true
+     - name: Login no Heroku
+       uses: docker/login-action@v2
+       with:
+        registry: registry.heroku.com
+        username: ${{ secrets.HEROKU_EMAIL }}
+        password: ${{ secrets.HEROKU_API_KEY }}
+     - name: Criação e envio da imagem
+       uses: docker/build-push-action@v3
+       with:
+        push: true
+        tags: registry.heroku.com/hello-docker-heroku-app/web:latest
+
 
 
 
