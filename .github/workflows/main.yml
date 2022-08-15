@@ -31,14 +31,14 @@ jobs:
      runs-on: ubuntu-latest
 
      steps:
-       - name: Git Checkout
-         uses: actions/checkout@v3
-       - name: Adiciona Permissão para mvnw
-         run: chmod +x mvnw
-       - name: Análise SonarCloud
-         run: ./mvnw verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=lab-devops-project
-         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+     - name: Git Checkout
+       uses: actions/checkout@v3
+     - name: Adiciona Permissão para mvnw
+       run: chmod +x mvnw
+     - name: Análise SonarCloud
+       run: ./mvnw verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=lab-devops-project
+       env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 
 
